@@ -9,6 +9,7 @@ import {
   formatLabel,
   PhoneContent,
 } from "./ContentPreview";
+import { DeviceFrame } from "./DeviceFrame";
 
 type Props = {
   onOpen: (item: Collab, trigger: HTMLElement) => void;
@@ -107,12 +108,9 @@ export function WorkGrid({ onOpen }: Props) {
                 aria-label={`Open ${item.title} — ${item.brand}`}
                 onClick={(e) => onOpen(item, e.currentTarget)}
               >
-                <div className="work-phone">
-                  <div className="work-notch" aria-hidden="true" />
-                  <div className="work-screen">
-                    <PhoneContent item={item} small />
-                  </div>
-                </div>
+                <DeviceFrame>
+                  <PhoneContent item={item} />
+                </DeviceFrame>
                 <div className="work-info">
                   <span className={formatBadgeClass(item.type)}>
                     <FormatIcon type={item.type} size={9} />

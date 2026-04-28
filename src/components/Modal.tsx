@@ -7,7 +7,9 @@ import {
   formatBadgeClass,
   formatLabel,
   PhoneContent,
+  STORY_SLIDE_COUNT,
 } from "./ContentPreview";
+import { DeviceFrame } from "./DeviceFrame";
 
 type Props = {
   item: Collab | null;
@@ -69,7 +71,7 @@ export function Modal({ item, onClose }: Props) {
   }, [item, onClose]);
 
   const totalSlides = item?.slides ?? 4;
-  const totalStories = 3;
+  const totalStories = STORY_SLIDE_COUNT;
   const carouselSlide =
     item && previewState.itemId === item.id ? previewState.carouselSlide : 0;
   const storySlide =
@@ -92,7 +94,7 @@ export function Modal({ item, onClose }: Props) {
           aria-labelledby="modal-title"
           aria-describedby="modal-desc"
         >
-          <div className="modal-phone-outer">
+          <div className="modal-phone-wrap">
             <button
               className="modal-close"
               onClick={onClose}
@@ -100,8 +102,7 @@ export function Modal({ item, onClose }: Props) {
             >
               ×
             </button>
-            <div className="modal-phone-screen">
-              <div className="modal-notch" aria-hidden="true" />
+            <DeviceFrame>
               <PhoneContent
                 item={item}
                 activeSlide={carouselSlide}
@@ -121,7 +122,7 @@ export function Modal({ item, onClose }: Props) {
                   aria-label="Advance story preview"
                 />
               )}
-            </div>
+            </DeviceFrame>
             {item.type === "Carousel" && (
               <>
                 <button

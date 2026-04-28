@@ -102,14 +102,16 @@ function PlaceholderBg({
   );
 }
 
-function ReelContent({ item, small }: { item: Collab; small?: boolean }) {
+function ReelContent({ item }: { item: Collab }) {
   return (
     <>
       <PlaceholderBg item={item} />
-      <div className={`play-btn-circle ${small ? "is-small" : ""}`}>
-        <FormatIcon type="Reel" size={small ? 11 : 14} />
+      <div className="play-btn-circle">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <polygon points="4,2 13,8 4,14" />
+        </svg>
       </div>
-      <div className={`phone-bottom-label ${small ? "is-small" : ""}`}>
+      <div className="phone-bottom-label">
         <div className="phone-bottom-brand">{item.brand}</div>
         <div className="phone-bottom-title">{item.title}</div>
       </div>
@@ -119,11 +121,9 @@ function ReelContent({ item, small }: { item: Collab; small?: boolean }) {
 
 function CarouselContent({
   item,
-  small,
   activeSlide = 0,
 }: {
   item: Collab;
-  small?: boolean;
   activeSlide?: number;
 }) {
   const slides = item.slides ?? 4;
@@ -133,7 +133,7 @@ function CarouselContent({
       <PlaceholderBg item={item} />
       <div className="carousel-stack" aria-hidden="true" />
       <div className="carousel-stack2" aria-hidden="true" />
-      <div className={`carousel-counter ${small ? "is-small" : ""}`}>
+      <div className="carousel-counter">
         {activeSlide + 1}/{slides}
       </div>
       <div className="carousel-dots" aria-hidden="true">
@@ -145,7 +145,7 @@ function CarouselContent({
         ))}
         {slides > 5 && <span className="c-more">+{slides - 5}</span>}
       </div>
-      <div className={`phone-bottom-label carousel ${small ? "is-small" : ""}`}>
+      <div className="phone-bottom-label carousel">
         <div className="phone-bottom-brand">{item.brand}</div>
         <div className="phone-bottom-title">{item.title}</div>
       </div>
@@ -153,23 +153,22 @@ function CarouselContent({
   );
 }
 
+const STORY_TOTAL = 3;
+
 function StoryContent({
   item,
-  small,
   storySlide = 0,
 }: {
   item: Collab;
-  small?: boolean;
   storySlide?: number;
 }) {
-  const totalStories = 3;
   const handle = item.storyHandle ?? "brand";
 
   return (
     <>
       <PlaceholderBg item={item} opacity={0.08} />
       <div className="story-progress" aria-hidden="true">
-        {Array.from({ length: totalStories }).map((_, i) => (
+        {Array.from({ length: STORY_TOTAL }).map((_, i) => (
           <span
             key={i}
             className={`story-prog-bar ${i < storySlide ? "done" : ""} ${
@@ -178,7 +177,7 @@ function StoryContent({
           />
         ))}
       </div>
-      <div className={`story-account-bar ${small ? "is-small" : ""}`}>
+      <div className="story-account-bar">
         <div className="story-avatar" aria-hidden="true">
           ig
         </div>
@@ -188,7 +187,7 @@ function StoryContent({
         </div>
         <div className="story-repost-badge">Repost</div>
       </div>
-      <div className={`story-watermark ${small ? "is-small" : ""}`}>
+      <div className="story-watermark">
         <div>Originally by</div>
         <strong>@TryWithTrish</strong>
       </div>
@@ -198,26 +197,20 @@ function StoryContent({
 
 type PreviewProps = {
   item: Collab;
-  small?: boolean;
   activeSlide?: number;
   storySlide?: number;
 };
 
-export function PhoneContent({
-  item,
-  small,
-  activeSlide,
-  storySlide,
-}: PreviewProps) {
+export function PhoneContent({ item, activeSlide, storySlide }: PreviewProps) {
   if (item.type === "Carousel") {
-    return (
-      <CarouselContent item={item} small={small} activeSlide={activeSlide} />
-    );
+    return <CarouselContent item={item} activeSlide={activeSlide} />;
   }
 
   if (item.type === "Story") {
-    return <StoryContent item={item} small={small} storySlide={storySlide} />;
+    return <StoryContent item={item} storySlide={storySlide} />;
   }
 
-  return <ReelContent item={item} small={small} />;
+  return <ReelContent item={item} />;
 }
+
+export const STORY_SLIDE_COUNT = STORY_TOTAL;
