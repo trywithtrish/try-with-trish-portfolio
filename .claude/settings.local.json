@@ -5,7 +5,9 @@
       "Bash(npm --version)",
       "Bash(brew --version)",
       "Read(//opt/homebrew/bin/**)",
-      "Read(//usr/local/bin/**)"
+      "Read(//usr/local/bin/**)",
+      "Bash(git config *)",
+      "Bash(brew install *)"
     ]
   }
 }

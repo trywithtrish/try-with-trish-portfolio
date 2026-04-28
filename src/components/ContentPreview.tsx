@@ -1,0 +1,223 @@
+import type { Collab, ContentFormat } from "@/lib/data";
+import { COLORS } from "@/lib/data";
+
+type IconProps = {
+  type: ContentFormat;
+  size?: number;
+};
+
+export function FormatIcon({ type, size = 12 }: IconProps) {
+  if (type === "Carousel") {
+    return (
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        aria-hidden="true"
+      >
+        <rect x="1" y="3" width="10" height="10" rx="1.5" strokeWidth="1.8" />
+        <rect
+          x="13"
+          y="5"
+          width="2"
+          height="6"
+          rx="1"
+          fill="currentColor"
+          stroke="none"
+          opacity="0.5"
+        />
+      </svg>
+    );
+  }
+
+  if (type === "Story") {
+    return (
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <circle cx="8" cy="8" r="4" strokeWidth="1.8" />
+        <circle
+          cx="8"
+          cy="8"
+          r="6.5"
+          strokeDasharray="2 1.5"
+          strokeWidth="1.2"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <polygon points="4,2 13,8 4,14" />
+    </svg>
+  );
+}
+
+export function formatLabel(type: ContentFormat) {
+  return type === "Story" ? "Story Repost" : type;
+}
+
+export function formatBadgeClass(type: ContentFormat) {
+  return `format-badge badge-${type.toLowerCase()}`;
+}
+
+function PlaceholderBg({
+  item,
+  opacity = 0.12,
+}: {
+  item: Collab;
+  opacity?: number;
+}) {
+  const bg = item.color || COLORS[item.cat] || "#C4B4A0";
+
+  return (
+    <div className="content-bg" style={{ background: bg }} aria-hidden="true">
+      <div
+        className="content-bg-stripes"
+        style={{
+          background: `repeating-linear-gradient(135deg, rgba(255,255,255,${opacity}) 0px, rgba(255,255,255,${opacity}) 1px, transparent 1px, transparent 18px)`,
+        }}
+      />
+      <div className="content-bg-label">
+        {item.brand}
+        <br />
+        content here
+      </div>
+    </div>
+  );
+}
+
+function ReelContent({ item, small }: { item: Collab; small?: boolean }) {
+  return (
+    <>
+      <PlaceholderBg item={item} />
+      <div className={`play-btn-circle ${small ? "is-small" : ""}`}>
+        <FormatIcon type="Reel" size={small ? 11 : 14} />
+      </div>
+      <div className={`phone-bottom-label ${small ? "is-small" : ""}`}>
+        <div className="phone-bottom-brand">{item.brand}</div>
+        <div className="phone-bottom-title">{item.title}</div>
+      </div>
+    </>
+  );
+}
+
+function CarouselContent({
+  item,
+  small,
+  activeSlide = 0,
+}: {
+  item: Collab;
+  small?: boolean;
+  activeSlide?: number;
+}) {
+  const slides = item.slides ?? 4;
+
+  return (
+    <>
+      <PlaceholderBg item={item} />
+      <div className="carousel-stack" aria-hidden="true" />
+      <div className="carousel-stack2" aria-hidden="true" />
+      <div className={`carousel-counter ${small ? "is-small" : ""}`}>
+        {activeSlide + 1}/{slides}
+      </div>
+      <div className="carousel-dots" aria-hidden="true">
+        {Array.from({ length: Math.min(slides, 5) }).map((_, i) => (
+          <span
+            key={i}
+            className={`c-dot ${i === activeSlide % 5 ? "active" : ""}`}
+          />
+        ))}
+        {slides > 5 && <span className="c-more">+{slides - 5}</span>}
+      </div>
+      <div className={`phone-bottom-label carousel ${small ? "is-small" : ""}`}>
+        <div className="phone-bottom-brand">{item.brand}</div>
+        <div className="phone-bottom-title">{item.title}</div>
+      </div>
+    </>
+  );
+}
+
+function StoryContent({
+  item,
+  small,
+  storySlide = 0,
+}: {
+  item: Collab;
+  small?: boolean;
+  storySlide?: number;
+}) {
+  const totalStories = 3;
+  const handle = item.storyHandle ?? "brand";
+
+  return (
+    <>
+      <PlaceholderBg item={item} opacity={0.08} />
+      <div className="story-progress" aria-hidden="true">
+        {Array.from({ length: totalStories }).map((_, i) => (
+          <span
+            key={i}
+            className={`story-prog-bar ${i < storySlide ? "done" : ""} ${
+              i === storySlide ? "active" : ""
+            }`}
+          />
+        ))}
+      </div>
+      <div className={`story-account-bar ${small ? "is-small" : ""}`}>
+        <div className="story-avatar" aria-hidden="true">
+          ig
+        </div>
+        <div>
+          <div className="story-handle">@{handle}</div>
+          <div className="story-sub">Brand repost</div>
+        </div>
+        <div className="story-repost-badge">Repost</div>
+      </div>
+      <div className={`story-watermark ${small ? "is-small" : ""}`}>
+        <div>Originally by</div>
+        <strong>@TryWithTrish</strong>
+      </div>
+    </>
+  );
+}
+
+type PreviewProps = {
+  item: Collab;
+  small?: boolean;
+  activeSlide?: number;
+  storySlide?: number;
+};
+
+export function PhoneContent({
+  item,
+  small,
+  activeSlide,
+  storySlide,
+}: PreviewProps) {
+  if (item.type === "Carousel") {
+    return (
+      <CarouselContent item={item} small={small} activeSlide={activeSlide} />
+    );
+  }
+
+  if (item.type === "Story") {
+    return <StoryContent item={item} small={small} storySlide={storySlide} />;
+  }
+
+  return <ReelContent item={item} small={small} />;
+}
