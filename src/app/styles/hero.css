@@ -79,16 +79,21 @@
   justify-content: center;
 }
 .hero-collage {
+  --phone-w: 190px;
+  --phone-offset: 130px;
   position: relative;
   width: 100%;
   height: 100%;
+  max-width: 560px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .hero-phone {
   position: absolute;
-  width: 190px;
+  left: 50%;
+  width: var(--phone-w);
 }
 .hero-floating-label {
   position: absolute;
@@ -113,6 +118,21 @@
   font-family: var(--font-serif);
   font-size: 16px;
   color: var(--ink);
+}
+
+@media (min-width: 1280px) {
+  .hero-collage {
+    --phone-w: 220px;
+    --phone-offset: 150px;
+    max-width: 640px;
+  }
+}
+@media (min-width: 1536px) {
+  .hero-collage {
+    --phone-w: 250px;
+    --phone-offset: 170px;
+    max-width: 720px;
+  }
 }
 
 @media (max-width: 1024px) {

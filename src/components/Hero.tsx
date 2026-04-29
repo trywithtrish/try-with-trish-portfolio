@@ -4,28 +4,24 @@ import { DeviceFrame } from "./DeviceFrame";
 
 const HERO_PHONES = [
   {
-    top: "12%",
-    left: "6%",
-    rotate: "-7deg",
+    top: "14%",
+    transform:
+      "translate(calc(-50% - var(--phone-offset)), 0) rotate(-6deg) scale(0.88)",
     item: FEATURED[0],
     z: 1,
-    scale: 0.85,
   },
   {
-    top: "6%",
-    left: "30%",
-    rotate: "0deg",
+    top: "8%",
+    transform: "translate(-50%, 0) rotate(0deg) scale(1)",
     item: FEATURED[1],
     z: 3,
-    scale: 1,
   },
   {
-    top: "16%",
-    left: "55%",
-    rotate: "6deg",
+    top: "14%",
+    transform:
+      "translate(calc(-50% + var(--phone-offset)), 0) rotate(6deg) scale(0.88)",
     item: FEATURED[2],
     z: 2,
-    scale: 0.87,
   },
 ];
 
@@ -77,8 +73,7 @@ export function Hero() {
               className="hero-phone"
               style={{
                 top: p.top,
-                left: p.left,
-                transform: `rotate(${p.rotate}) scale(${p.scale})`,
+                transform: p.transform,
                 zIndex: p.z,
               }}
             >
