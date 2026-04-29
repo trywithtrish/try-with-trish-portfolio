@@ -52,8 +52,8 @@ export function Hero() {
         </div>
         <dl className="hero-stats">
           <div>
-            <dt className="stat-label">Followers</dt>
-            <dd className="stat-num">—</dd>
+            <dt className="stat-label">Views</dt>
+            <dd className="stat-num">2.8M+</dd>
           </div>
           <div>
             <dt className="stat-label">Avg. engagement</dt>

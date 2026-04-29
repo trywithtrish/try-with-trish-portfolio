@@ -136,20 +136,7 @@ function PreviewImage({
 }
 
 function ReelContent({ item }: { item: Collab }) {
-  return (
-    <>
-      <PreviewImage src={item.cover} item={item} />
-      <div className="play-btn-circle">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-          <polygon points="4,2 13,8 4,14" />
-        </svg>
-      </div>
-      <div className="phone-bottom-label">
-        <div className="phone-bottom-brand">{item.brand}</div>
-        <div className="phone-bottom-title">{item.title}</div>
-      </div>
-    </>
-  );
+  return <PreviewImage src={item.cover} item={item} />;
 }
 
 function CarouselContent({
@@ -159,32 +146,8 @@ function CarouselContent({
   item: Collab;
   activeSlide?: number;
 }) {
-  const slides = getCarouselCount(item);
   const src = item.images?.[activeSlide] ?? item.cover;
-
-  return (
-    <>
-      <PreviewImage src={src} item={item} />
-      <div className="carousel-stack" aria-hidden="true" />
-      <div className="carousel-stack2" aria-hidden="true" />
-      <div className="carousel-counter">
-        {activeSlide + 1}/{slides}
-      </div>
-      <div className="carousel-dots" aria-hidden="true">
-        {Array.from({ length: Math.min(slides, 5) }).map((_, i) => (
-          <span
-            key={i}
-            className={`c-dot ${i === activeSlide % 5 ? "active" : ""}`}
-          />
-        ))}
-        {slides > 5 && <span className="c-more">+{slides - 5}</span>}
-      </div>
-      <div className="phone-bottom-label carousel">
-        <div className="phone-bottom-brand">{item.brand}</div>
-        <div className="phone-bottom-title">{item.title}</div>
-      </div>
-    </>
-  );
+  return <PreviewImage src={src} item={item} />;
 }
 
 function StoryContent({
@@ -194,39 +157,8 @@ function StoryContent({
   item: Collab;
   storySlide?: number;
 }) {
-  const handle = item.storyHandle ?? "brand";
-  const total = getStoryCount(item);
   const src = item.images?.[storySlide] ?? item.cover;
-
-  return (
-    <>
-      <PreviewImage src={src} item={item} opacity={0.08} />
-      <div className="story-progress" aria-hidden="true">
-        {Array.from({ length: total }).map((_, i) => (
-          <span
-            key={i}
-            className={`story-prog-bar ${i < storySlide ? "done" : ""} ${
-              i === storySlide ? "active" : ""
-            }`}
-          />
-        ))}
-      </div>
-      <div className="story-account-bar">
-        <div className="story-avatar" aria-hidden="true">
-          ig
-        </div>
-        <div>
-          <div className="story-handle">@{handle}</div>
-          <div className="story-sub">Brand repost</div>
-        </div>
-        <div className="story-repost-badge">Repost</div>
-      </div>
-      <div className="story-watermark">
-        <div>Originally by</div>
-        <strong>@TryWithTrish</strong>
-      </div>
-    </>
-  );
+  return <PreviewImage src={src} item={item} opacity={0.08} />;
 }
 
 type PreviewProps = {

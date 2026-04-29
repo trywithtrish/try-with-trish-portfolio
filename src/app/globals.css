@@ -26,6 +26,9 @@
   --ink: var(--color-ink);
   --ink-mid: var(--color-ink-mid);
   --ink-light: var(--color-ink-light);
+  /* iPhone bezel — kept distinct from --ink so the phone reads as jet
+     black hardware while brand ink stays warm. */
+  --bezel: #0E0E10;
   --font-serif: var(--font-cormorant), Georgia, serif;
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
 }

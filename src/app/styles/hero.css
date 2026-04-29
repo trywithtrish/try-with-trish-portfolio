@@ -97,7 +97,7 @@
 }
 .hero-floating-label {
   position: absolute;
-  bottom: 12%;
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
   background: var(--cream);
