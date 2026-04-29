@@ -350,13 +350,20 @@ section { padding: 100px 80px; }
 .phone-card:hover { transform: translateY(-6px); }
 
 /* ── DEVICE FRAME (shared) ──
-   One frame definition, scales proportionally via container queries.
-   All inner dimensions use cqw (1cqw = 1% of frame width). */
-.device-frame {
+   .device-frame-wrap is the container query container; .device-frame is
+   the visual frame and uses cqw to scale all inner dimensions
+   proportionally (1cqw = 1% of wrap width). cqw can't be used on the
+   container element itself, so the visual frame must be a descendant. */
+.device-frame-wrap {
   container-type: inline-size;
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
+}
+.device-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
   background: var(--ink);
   border-radius: 12.5cqw;
   padding: 3cqw;
