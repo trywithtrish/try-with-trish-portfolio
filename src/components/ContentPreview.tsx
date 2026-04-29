@@ -1,3 +1,4 @@
+import Image, { type StaticImageData } from "next/image";
 import type { Collab, ContentFormat } from "@/lib/data";
 import { COLORS } from "@/lib/data";
 
@@ -76,6 +77,14 @@ export function formatBadgeClass(type: ContentFormat) {
   return `format-badge badge-${type.toLowerCase()}`;
 }
 
+export function getCarouselCount(item: Collab) {
+  return item.images?.length ?? item.slides ?? 4;
+}
+
+export function getStoryCount(item: Collab) {
+  return item.images?.length ?? 3;
+}
+
 function PlaceholderBg({
   item,
   opacity = 0.12,
@@ -102,10 +111,34 @@ function PlaceholderBg({
   );
 }
 
+function PreviewImage({
+  src,
+  item,
+  opacity,
+}: {
+  src?: StaticImageData;
+  item: Collab;
+  opacity?: number;
+}) {
+  if (!src) return <PlaceholderBg item={item} opacity={opacity} />;
+  return (
+    <Image
+      src={src}
+      alt=""
+      aria-hidden
+      fill
+      sizes="(max-width: 768px) 60vw, 280px"
+      placeholder="blur"
+      className="content-img"
+      style={{ objectFit: "cover" }}
+    />
+  );
+}
+
 function ReelContent({ item }: { item: Collab }) {
   return (
     <>
-      <PlaceholderBg item={item} />
+      <PreviewImage src={item.cover} item={item} />
       <div className="play-btn-circle">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
           <polygon points="4,2 13,8 4,14" />
@@ -126,11 +159,12 @@ function CarouselContent({
   item: Collab;
   activeSlide?: number;
 }) {
-  const slides = item.slides ?? 4;
+  const slides = getCarouselCount(item);
+  const src = item.images?.[activeSlide] ?? item.cover;
 
   return (
     <>
-      <PlaceholderBg item={item} />
+      <PreviewImage src={src} item={item} />
       <div className="carousel-stack" aria-hidden="true" />
       <div className="carousel-stack2" aria-hidden="true" />
       <div className="carousel-counter">
@@ -153,8 +187,6 @@ function CarouselContent({
   );
 }
 
-const STORY_TOTAL = 3;
-
 function StoryContent({
   item,
   storySlide = 0,
@@ -163,12 +195,14 @@ function StoryContent({
   storySlide?: number;
 }) {
   const handle = item.storyHandle ?? "brand";
+  const total = getStoryCount(item);
+  const src = item.images?.[storySlide] ?? item.cover;
 
   return (
     <>
-      <PlaceholderBg item={item} opacity={0.08} />
+      <PreviewImage src={src} item={item} opacity={0.08} />
       <div className="story-progress" aria-hidden="true">
-        {Array.from({ length: STORY_TOTAL }).map((_, i) => (
+        {Array.from({ length: total }).map((_, i) => (
           <span
             key={i}
             className={`story-prog-bar ${i < storySlide ? "done" : ""} ${
@@ -212,5 +246,3 @@ export function PhoneContent({ item, activeSlide, storySlide }: PreviewProps) {
 
   return <ReelContent item={item} />;
 }
-
-export const STORY_SLIDE_COUNT = STORY_TOTAL;

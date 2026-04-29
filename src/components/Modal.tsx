@@ -6,8 +6,9 @@ import {
   FormatIcon,
   formatBadgeClass,
   formatLabel,
+  getCarouselCount,
+  getStoryCount,
   PhoneContent,
-  STORY_SLIDE_COUNT,
 } from "./ContentPreview";
 import { DeviceFrame } from "./DeviceFrame";
 
@@ -70,8 +71,8 @@ export function Modal({ item, onClose }: Props) {
     };
   }, [item, onClose]);
 
-  const totalSlides = item?.slides ?? 4;
-  const totalStories = STORY_SLIDE_COUNT;
+  const totalSlides = item ? getCarouselCount(item) : 4;
+  const totalStories = item ? getStoryCount(item) : 3;
   const carouselSlide =
     item && previewState.itemId === item.id ? previewState.carouselSlide : 0;
   const storySlide =
@@ -103,11 +104,21 @@ export function Modal({ item, onClose }: Props) {
           </button>
           <div className="modal-phone-wrap">
             <DeviceFrame>
-              <PhoneContent
-                item={item}
-                activeSlide={carouselSlide}
-                storySlide={storySlide}
-              />
+              {item.type === "Reel" && item.videoUrl ? (
+                <video
+                  src={item.videoUrl}
+                  className="content-video"
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <PhoneContent
+                  item={item}
+                  activeSlide={carouselSlide}
+                  storySlide={storySlide}
+                />
+              )}
               {item.type === "Story" && (
                 <button
                   className="story-advance"
@@ -213,8 +224,11 @@ export function Modal({ item, onClose }: Props) {
             )}
             {item.type === "Reel" && (
               <p className="modal-format-detail">
-                Short-form Instagram Reel. Drop your video link or file here
-                when ready.
+                {item.videoUrl
+                  ? "Short-form Instagram Reel."
+                  : item.cover
+                    ? "Short-form Instagram Reel — final video coming soon, cover preview shown."
+                    : "Short-form Instagram Reel. Drop your video link or file here when ready."}
               </p>
             )}
           </div>

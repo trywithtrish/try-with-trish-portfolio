@@ -3,6 +3,19 @@
    placeholders. All inner sizing uses cqw so previews scale with the frame. */
 .content-bg { position: absolute; inset: 0; }
 .content-bg-stripes { position: absolute; inset: 0; }
+
+/* next/image fill mode + future <video>: sit below all chrome layers
+   (label gradient z=3, play btn z=4, story bars z=6, carousel stack z=6). */
+.content-img { z-index: 1; border-radius: inherit; }
+.content-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: inherit;
+}
 .content-bg-label {
   position: absolute;
   inset: 0;

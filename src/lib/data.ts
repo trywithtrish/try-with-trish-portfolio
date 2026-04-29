@@ -1,3 +1,51 @@
+import type { StaticImageData } from "next/image";
+
+import hmbCarousel01 from "../../public/work/ritz-hmb-carousel/slide-01.jpeg";
+import hmbCarousel02 from "../../public/work/ritz-hmb-carousel/slide-02.jpeg";
+import hmbCarousel03 from "../../public/work/ritz-hmb-carousel/slide-03.jpeg";
+import hmbCarousel04 from "../../public/work/ritz-hmb-carousel/slide-04.jpeg";
+import hmbCarousel05 from "../../public/work/ritz-hmb-carousel/slide-05.jpeg";
+import hmbCarousel06 from "../../public/work/ritz-hmb-carousel/slide-06.jpeg";
+import hmbCarousel07 from "../../public/work/ritz-hmb-carousel/slide-07.jpeg";
+import hmbCarousel08 from "../../public/work/ritz-hmb-carousel/slide-08.jpeg";
+import hmbCarousel09 from "../../public/work/ritz-hmb-carousel/slide-09.jpeg";
+import hmbCarousel10 from "../../public/work/ritz-hmb-carousel/slide-10.jpeg";
+import hmbCarousel11 from "../../public/work/ritz-hmb-carousel/slide-11.jpeg";
+import hmbStoryCover from "../../public/work/ritz-hmb-story/cover-01.jpeg";
+import hmbStory01 from "../../public/work/ritz-hmb-story/story-01.jpeg";
+import hmbStory02 from "../../public/work/ritz-hmb-story/story-02.jpeg";
+import hmbStory03 from "../../public/work/ritz-hmb-story/story-03.jpeg";
+import hmbStory04 from "../../public/work/ritz-hmb-story/story-04.jpeg";
+import hmbStory05 from "../../public/work/ritz-hmb-story/story-05.jpeg";
+import hmbStory06 from "../../public/work/ritz-hmb-story/story-06.jpeg";
+import hmbStory07 from "../../public/work/ritz-hmb-story/story-07.jpeg";
+import sfTeaCover from "../../public/work/ritz-sf-tea/cover.jpeg";
+import bustronomeCover from "../../public/work/bustronome-london/cover-01.jpeg";
+
+const HMB_CAROUSEL: StaticImageData[] = [
+  hmbCarousel01,
+  hmbCarousel02,
+  hmbCarousel03,
+  hmbCarousel04,
+  hmbCarousel05,
+  hmbCarousel06,
+  hmbCarousel07,
+  hmbCarousel08,
+  hmbCarousel09,
+  hmbCarousel10,
+  hmbCarousel11,
+];
+
+const HMB_STORY: StaticImageData[] = [
+  hmbStory01,
+  hmbStory02,
+  hmbStory03,
+  hmbStory04,
+  hmbStory05,
+  hmbStory06,
+  hmbStory07,
+];
+
 export type Category = "Hotels" | "Food" | "Travel";
 export type ContentFormat = "Reel" | "Carousel" | "Story";
 
@@ -14,6 +62,9 @@ export type Collab = {
   slides?: number;
   storyHandle?: string;
   description?: string;
+  cover?: StaticImageData;
+  images?: StaticImageData[];
+  videoUrl?: string;
 };
 
 /**
@@ -33,6 +84,7 @@ export const FEATURED: Collab[] = [
     views: "Reel",
     description:
       "Two-day room experience along the Northern California coast, captured as an editorial Instagram Reel.",
+    cover: hmbCarousel01,
   },
   {
     id: 2,
@@ -43,10 +95,11 @@ export const FEATURED: Collab[] = [
     color: "#9BAE9A",
     stripe: "rgba(120,150,118,0.28)",
     deliverables: ["Carousel"],
-    slides: 6,
     views: "Carousel",
     description:
       "A swipe-through Instagram post highlighting the room, coastline, dining moments, and property details from the stay.",
+    cover: hmbCarousel01,
+    images: HMB_CAROUSEL,
   },
   {
     id: 3,
@@ -61,6 +114,8 @@ export const FEATURED: Collab[] = [
     views: "Story repost",
     description:
       "Live story screenshots reshared by the official property account, showing the brand amplifying Trisha's coverage.",
+    cover: hmbStoryCover,
+    images: HMB_STORY,
   },
 ];
 
@@ -82,6 +137,7 @@ export const WORK: Collab[] = [
     views: "Reel",
     description:
       "Coral-themed afternoon tea celebrating the property's 35th anniversary, focused on pastry, tradition, and editorial dining detail.",
+    cover: sfTeaCover,
   },
   {
     id: 5,
@@ -95,6 +151,7 @@ export const WORK: Collab[] = [
     views: "Reel",
     description:
       "A panoramic glass-roof double-decker bus serves a multi-course tasting menu while touring London's landmarks.",
+    cover: bustronomeCover,
   },
 ];
 
