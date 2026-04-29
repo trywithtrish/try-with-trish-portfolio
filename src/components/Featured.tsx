@@ -8,6 +8,7 @@ import {
   formatLabel,
   PhoneContent,
 } from "./ContentPreview";
+import { DeviceFrame } from "./DeviceFrame";
 
 type Props = {
   onOpen: (item: Collab, trigger: HTMLElement) => void;
@@ -37,12 +38,9 @@ export function Featured({ onOpen }: Props) {
             aria-label={`Open details for ${item.title} — ${item.brand}`}
             onClick={(e) => onOpen(item, e.currentTarget)}
           >
-            <div className="phone-frame">
-              <div className="phone-notch" aria-hidden="true" />
-              <div className="phone-screen">
-                <PhoneContent item={item} />
-              </div>
-            </div>
+            <DeviceFrame>
+              <PhoneContent item={item} />
+            </DeviceFrame>
             <div className="phone-card-label">
               <span className={formatBadgeClass(item.type)}>
                 <FormatIcon type={item.type} size={10} />

@@ -1,5 +1,6 @@
 import { FEATURED } from "@/lib/data";
 import { PhoneContent } from "./ContentPreview";
+import { DeviceFrame } from "./DeviceFrame";
 
 const HERO_PHONES = [
   {
@@ -81,9 +82,9 @@ export function Hero() {
                 zIndex: p.z,
               }}
             >
-              <div className="hero-phone-screen">
-                <PhoneContent item={p.item} small />
-              </div>
+              <DeviceFrame>
+                <PhoneContent item={p.item} />
+              </DeviceFrame>
             </div>
           ))}
           <div className="hero-floating-label">

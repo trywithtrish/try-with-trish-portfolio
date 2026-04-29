@@ -7,7 +7,9 @@ import {
   formatBadgeClass,
   formatLabel,
   PhoneContent,
+  STORY_SLIDE_COUNT,
 } from "./ContentPreview";
+import { DeviceFrame } from "./DeviceFrame";
 
 type Props = {
   item: Collab | null;
@@ -69,7 +71,7 @@ export function Modal({ item, onClose }: Props) {
   }, [item, onClose]);
 
   const totalSlides = item?.slides ?? 4;
-  const totalStories = 3;
+  const totalStories = STORY_SLIDE_COUNT;
   const carouselSlide =
     item && previewState.itemId === item.id ? previewState.carouselSlide : 0;
   const storySlide =
@@ -92,16 +94,15 @@ export function Modal({ item, onClose }: Props) {
           aria-labelledby="modal-title"
           aria-describedby="modal-desc"
         >
-          <div className="modal-phone-outer">
-            <button
-              className="modal-close"
-              onClick={onClose}
-              aria-label="Close dialog"
-            >
-              ×
-            </button>
-            <div className="modal-phone-screen">
-              <div className="modal-notch" aria-hidden="true" />
+          <button
+            className="modal-close"
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
+          <div className="modal-phone-wrap">
+            <DeviceFrame>
               <PhoneContent
                 item={item}
                 activeSlide={carouselSlide}
@@ -121,9 +122,9 @@ export function Modal({ item, onClose }: Props) {
                   aria-label="Advance story preview"
                 />
               )}
-            </div>
+            </DeviceFrame>
             {item.type === "Carousel" && (
-              <>
+              <div className="modal-controls">
                 <button
                   type="button"
                   className="modal-side-btn prev"
@@ -139,6 +140,9 @@ export function Modal({ item, onClose }: Props) {
                 >
                   ‹
                 </button>
+                <div className="modal-controls-progress">
+                  Slide {carouselSlide + 1} of {totalSlides}
+                </div>
                 <button
                   type="button"
                   className="modal-side-btn next"
@@ -154,7 +158,7 @@ export function Modal({ item, onClose }: Props) {
                 >
                   ›
                 </button>
-              </>
+              </div>
             )}
           </div>
           <div className="modal-info">
@@ -176,9 +180,7 @@ export function Modal({ item, onClose }: Props) {
             )}
             {item.type === "Carousel" && (
               <div className="modal-format-detail">
-                <div className="modal-detail-kicker">
-                  Slide {carouselSlide + 1} of {totalSlides}
-                </div>
+                <div className="modal-detail-kicker">Jump to slide</div>
                 <div className="modal-slide-scrubber">
                   {Array.from({ length: totalSlides }).map((_, i) => (
                     <button
