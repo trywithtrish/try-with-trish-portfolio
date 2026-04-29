@@ -55,14 +55,10 @@ export type Collab = {
   title: string;
   cat: Category;
   type: ContentFormat;
-  color: string;
-  stripe: string;
-  deliverables: string[];
-  views?: string;
   slides?: number;
   storyHandle?: string;
   description?: string;
-  cover?: StaticImageData;
+  cover: StaticImageData;
   images?: StaticImageData[];
   videoUrl?: string;
 };
@@ -78,10 +74,6 @@ export const FEATURED: Collab[] = [
     title: "A room with a view",
     cat: "Hotels",
     type: "Reel",
-    color: "#C4A882",
-    stripe: "rgba(180,155,120,0.3)",
-    deliverables: ["Reel"],
-    views: "Reel",
     description:
       "Two-day room experience along the Northern California coast, captured as an editorial Instagram Reel.",
     cover: hmbCarousel01,
@@ -92,10 +84,6 @@ export const FEATURED: Collab[] = [
     title: "Coastal stay carousel",
     cat: "Hotels",
     type: "Carousel",
-    color: "#9BAE9A",
-    stripe: "rgba(120,150,118,0.28)",
-    deliverables: ["Carousel"],
-    views: "Carousel",
     description:
       "A swipe-through Instagram post highlighting the room, coastline, dining moments, and property details from the stay.",
     cover: hmbCarousel01,
@@ -107,11 +95,7 @@ export const FEATURED: Collab[] = [
     title: "Brand story repost",
     cat: "Hotels",
     type: "Story",
-    color: "#A8B8C8",
-    stripe: "rgba(140,160,178,0.3)",
-    deliverables: ["Story Repost"],
     storyHandle: "ritzcarltonhmb",
-    views: "Story repost",
     description:
       "Live story screenshots reshared by the official property account, showing the brand amplifying Trisha's coverage.",
     cover: hmbStoryCover,
@@ -131,10 +115,6 @@ export const WORK: Collab[] = [
     title: "35th anniversary afternoon tea",
     cat: "Food",
     type: "Reel",
-    color: "#D9967A",
-    stripe: "rgba(192,122,90,0.28)",
-    deliverables: ["Reel"],
-    views: "Reel",
     description:
       "Coral-themed afternoon tea celebrating the property's 35th anniversary, focused on pastry, tradition, and editorial dining detail.",
     cover: sfTeaCover,
@@ -145,21 +125,11 @@ export const WORK: Collab[] = [
     title: "Fine dining above London",
     cat: "Travel",
     type: "Reel",
-    color: "#A8B8C8",
-    stripe: "rgba(140,160,178,0.3)",
-    deliverables: ["Reel"],
-    views: "Reel",
     description:
       "A panoramic glass-roof double-decker bus serves a multi-course tasting menu while touring London's landmarks.",
     cover: bustronomeCover,
   },
 ];
-
-export const COLORS: Record<Category, string> = {
-  Hotels: "#C4A882",
-  Food: "#9BAE9A",
-  Travel: "#A8B8C8",
-};
 
 export const FILTERS: ("All" | Category)[] = ["All", "Hotels", "Food", "Travel"];
 export const FORMAT_FILTERS: ("All" | ContentFormat)[] = [

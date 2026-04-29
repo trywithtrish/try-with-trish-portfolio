@@ -118,7 +118,6 @@ export function WorkGrid({ onOpen }: Props) {
                   </span>
                   <div className="work-cat-label">{item.brand}</div>
                   <div className="work-name">{item.title}</div>
-                  <div className="work-deliverables">{item.views}</div>
                 </div>
               </button>
             </li>

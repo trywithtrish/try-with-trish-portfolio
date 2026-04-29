@@ -113,12 +113,6 @@
   color: var(--ink);
   line-height: 1.25;
 }
-.work-deliverables {
-  font-size: 11px;
-  color: var(--ink-light);
-  margin-top: 4px;
-  letter-spacing: 0.04em;
-}
 
 .empty-results {
   text-align: center;

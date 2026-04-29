@@ -1,6 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
 import type { Collab, ContentFormat } from "@/lib/data";
-import { COLORS } from "@/lib/data";
 
 type IconProps = {
   type: ContentFormat;
@@ -85,42 +84,7 @@ export function getStoryCount(item: Collab) {
   return item.images?.length ?? 3;
 }
 
-function PlaceholderBg({
-  item,
-  opacity = 0.12,
-}: {
-  item: Collab;
-  opacity?: number;
-}) {
-  const bg = item.color || COLORS[item.cat] || "#C4B4A0";
-
-  return (
-    <div className="content-bg" style={{ background: bg }} aria-hidden="true">
-      <div
-        className="content-bg-stripes"
-        style={{
-          background: `repeating-linear-gradient(135deg, rgba(255,255,255,${opacity}) 0px, rgba(255,255,255,${opacity}) 1px, transparent 1px, transparent 18px)`,
-        }}
-      />
-      <div className="content-bg-label">
-        {item.brand}
-        <br />
-        content here
-      </div>
-    </div>
-  );
-}
-
-function PreviewImage({
-  src,
-  item,
-  opacity,
-}: {
-  src?: StaticImageData;
-  item: Collab;
-  opacity?: number;
-}) {
-  if (!src) return <PlaceholderBg item={item} opacity={opacity} />;
+function PreviewImage({ src }: { src: StaticImageData }) {
   return (
     <Image
       src={src}
@@ -136,7 +100,7 @@ function PreviewImage({
 }
 
 function ReelContent({ item }: { item: Collab }) {
-  return <PreviewImage src={item.cover} item={item} />;
+  return <PreviewImage src={item.cover} />;
 }
 
 function CarouselContent({
@@ -146,8 +110,7 @@ function CarouselContent({
   item: Collab;
   activeSlide?: number;
 }) {
-  const src = item.images?.[activeSlide] ?? item.cover;
-  return <PreviewImage src={src} item={item} />;
+  return <PreviewImage src={item.images?.[activeSlide] ?? item.cover} />;
 }
 
 function StoryContent({
@@ -157,8 +120,7 @@ function StoryContent({
   item: Collab;
   storySlide?: number;
 }) {
-  const src = item.images?.[storySlide] ?? item.cover;
-  return <PreviewImage src={src} item={item} opacity={0.08} />;
+  return <PreviewImage src={item.images?.[storySlide] ?? item.cover} />;
 }
 
 type PreviewProps = {

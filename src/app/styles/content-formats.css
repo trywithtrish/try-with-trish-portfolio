@@ -1,10 +1,6 @@
 /* ── CONTENT FORMATS ──
-   Visuals rendered inside .device-screen for Reel / Carousel / Story
-   placeholders. All inner sizing uses cqw so previews scale with the frame. */
-.content-bg { position: absolute; inset: 0; }
-.content-bg-stripes { position: absolute; inset: 0; }
-
-/* Source screenshots are 1206×2622 and already include the device's
+   Visuals rendered inside .device-screen for Reel / Carousel / Story.
+   Source screenshots are 1206×2622 and already include the device's
    real iOS status bar; the Dynamic Island sits on top of that area
    visually. The screen aspect ratio matches the source, so cover
    shows the image edge-to-edge with no crop. */
@@ -17,21 +13,6 @@
   object-fit: cover;
   z-index: 1;
   border-radius: inherit;
-}
-.content-bg-label {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: monospace;
-  font-size: 8px;
-  color: rgba(42, 36, 32, 0.35);
-  text-align: center;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1.7;
-  padding: 0 14px;
 }
 
 .format-badge {

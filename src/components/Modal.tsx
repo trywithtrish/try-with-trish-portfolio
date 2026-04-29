@@ -183,12 +183,6 @@ export function Modal({ item, onClose }: Props) {
             <div className="modal-info-brand">
               {item.brand} · {item.cat}
             </div>
-            {item.views && (
-              <div>
-                <div className="modal-info-views">{item.views}</div>
-                <div className="modal-info-views-label">format</div>
-              </div>
-            )}
             {item.type === "Carousel" && (
               <div className="modal-format-detail">
                 <div className="modal-detail-kicker">Jump to slide</div>
