@@ -1,41 +1,40 @@
-import { FEATURED } from "@/lib/data";
-import { PhoneContent } from "./ContentPreview";
-import { DeviceFrame } from "./DeviceFrame";
+"use client";
 
-const HERO_PHONES = [
-  {
-    top: "12%",
-    left: "6%",
-    rotate: "-7deg",
-    item: FEATURED[0],
-    z: 1,
-    scale: 0.85,
-  },
-  {
-    top: "6%",
-    left: "30%",
-    rotate: "0deg",
-    item: FEATURED[1],
-    z: 3,
-    scale: 1,
-  },
-  {
-    top: "16%",
-    left: "55%",
-    rotate: "6deg",
-    item: FEATURED[2],
-    z: 2,
-    scale: 0.87,
-  },
-];
+import { useEffect, useState } from "react";
 
 export function Hero() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
-    <section id="hero">
+    <section
+      id="hero"
+      style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s" }}
+    >
+      <div className="hero-right" aria-hidden="true">
+        <div className="hero-portrait-placeholder">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--taupe)"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+          </svg>
+          <span className="hero-portrait-label">portrait photo</span>
+        </div>
+        <div className="hero-portrait-border-br" />
+        <div className="hero-portrait-border-tl" />
+      </div>
       <div className="hero-left">
-        <p className="hero-eyebrow">
-          Luxury Travel & Dining · Instagram Content
-        </p>
         <h1 className="hero-title">
           Experiences
           <br />
@@ -53,44 +52,6 @@ export function Hero() {
           <a href="#contact" className="btn-ghost">
             Get in touch
           </a>
-        </div>
-        <dl className="hero-stats">
-          <div>
-            <dt className="stat-label">Followers</dt>
-            <dd className="stat-num">—</dd>
-          </div>
-          <div>
-            <dt className="stat-label">Avg. engagement</dt>
-            <dd className="stat-num">—</dd>
-          </div>
-          <div>
-            <dt className="stat-label">Brand collabs</dt>
-            <dd className="stat-num">3+</dd>
-          </div>
-        </dl>
-      </div>
-      <div className="hero-right" aria-hidden="true">
-        <div className="hero-collage">
-          {HERO_PHONES.map((p, i) => (
-            <div
-              key={i}
-              className="hero-phone"
-              style={{
-                top: p.top,
-                left: p.left,
-                transform: `rotate(${p.rotate}) scale(${p.scale})`,
-                zIndex: p.z,
-              }}
-            >
-              <DeviceFrame>
-                <PhoneContent item={p.item} />
-              </DeviceFrame>
-            </div>
-          ))}
-          <div className="hero-floating-label">
-            <div className="hero-floating-eyebrow">Latest collab</div>
-            <div className="hero-floating-brand">Ritz-Carlton Half Moon Bay</div>
-          </div>
         </div>
       </div>
     </section>
