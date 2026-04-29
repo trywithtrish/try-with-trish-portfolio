@@ -1,0 +1,42 @@
+/* ── DEVICE FRAME (shared) ──
+   .device-frame-wrap is the container query container; .device-frame is the
+   visual frame and uses cqw to scale all inner dimensions proportionally
+   (1cqw = 1% of wrap width). cqw can't be used on the container element
+   itself, so the visual frame must be a descendant. */
+.device-frame-wrap {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+}
+.device-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  border-radius: 12.5cqw;
+  padding: 3cqw;
+  box-shadow:
+    0 6cqw 14cqw rgba(44, 36, 32, 0.18),
+    0 1cqw 4cqw rgba(44, 36, 32, 0.1);
+}
+.device-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9.5cqw;
+  overflow: hidden;
+  background: var(--sand);
+}
+.device-notch {
+  position: absolute;
+  top: 3cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 33cqw;
+  height: 4cqw;
+  background: var(--ink);
+  border-radius: 0 0 2.5cqw 2.5cqw;
+  z-index: 4;
+  pointer-events: none;
+}
