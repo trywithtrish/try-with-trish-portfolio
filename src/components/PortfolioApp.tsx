@@ -1,6 +1,5 @@
 "use client";
 
-import { About } from "./About";
 import { Contact } from "./Contact";
 import { Featured } from "./Featured";
 import { Footer } from "./Footer";
@@ -20,7 +19,6 @@ export function PortfolioApp() {
         <Hero />
         <Featured onOpen={open} />
         <WorkGrid onOpen={open} />
-        <About />
         <Contact />
       </main>
       <Footer />
