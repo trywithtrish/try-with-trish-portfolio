@@ -94,14 +94,14 @@ export function Modal({ item, onClose }: Props) {
           aria-labelledby="modal-title"
           aria-describedby="modal-desc"
         >
+          <button
+            className="modal-close"
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
           <div className="modal-phone-wrap">
-            <button
-              className="modal-close"
-              onClick={onClose}
-              aria-label="Close dialog"
-            >
-              ×
-            </button>
             <DeviceFrame>
               <PhoneContent
                 item={item}
@@ -124,7 +124,7 @@ export function Modal({ item, onClose }: Props) {
               )}
             </DeviceFrame>
             {item.type === "Carousel" && (
-              <>
+              <div className="modal-controls">
                 <button
                   type="button"
                   className="modal-side-btn prev"
@@ -140,6 +140,9 @@ export function Modal({ item, onClose }: Props) {
                 >
                   ‹
                 </button>
+                <div className="modal-controls-progress">
+                  Slide {carouselSlide + 1} of {totalSlides}
+                </div>
                 <button
                   type="button"
                   className="modal-side-btn next"
@@ -155,7 +158,7 @@ export function Modal({ item, onClose }: Props) {
                 >
                   ›
                 </button>
-              </>
+              </div>
             )}
           </div>
           <div className="modal-info">
@@ -177,9 +180,7 @@ export function Modal({ item, onClose }: Props) {
             )}
             {item.type === "Carousel" && (
               <div className="modal-format-detail">
-                <div className="modal-detail-kicker">
-                  Slide {carouselSlide + 1} of {totalSlides}
-                </div>
+                <div className="modal-detail-kicker">Jump to slide</div>
                 <div className="modal-slide-scrubber">
                   {Array.from({ length: totalSlides }).map((_, i) => (
                     <button
