@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data.
 Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
+**Always invoke the `next-best-practices` skill before adding or modifying Next.js code in this repo** (routes, layouts, server/client components, data fetching, metadata, route handlers, `next/image`, `next/font`, bundling). It covers file conventions, RSC boundaries, data patterns, async APIs, and error handling that override stale training-data assumptions.
+
 <!-- END:nextjs-agent-rules -->
 
 ## Commands
